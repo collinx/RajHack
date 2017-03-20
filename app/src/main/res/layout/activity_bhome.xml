@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
+<ScrollView
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.gov.rajasthan.doitc.rajhack.MainActivity">
-
+    tools:context="in.gov.rajasthan.doitc.rajhack.BHome"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-        <EditText
-            android:id="@+id/text1"
+        <Button
+            android:id="@+id/button2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="Click To PRoceed To Next Activity"
+            />
+
+        <TextView
+            android:id="@+id/targeturi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Text"/>
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Click To Generate Qr Code"
+            android:hint="Sample"
             android:layout_gravity="center"/>
 
-
         <ImageView
-            android:id="@+id/image1"
+            android:id="@+id/targetimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Something"
+            />
+
 
     </LinearLayout>
 
