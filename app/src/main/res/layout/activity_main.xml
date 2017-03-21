@@ -5,33 +5,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="in.gov.rajasthan.doitc.rajhack.MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <EditText
-            android:id="@+id/text1"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Text"/>
+            android:background="#9fa8da">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="QR Code Generate"
+                android:textSize="28sp"
+                android:gravity="center"/>
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:paddingTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Click To Generate Qr Code"
-            android:layout_gravity="center"/>
+            <EditText
+                android:padding="16dp"
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapCharacters"
+                android:hint="Enter Bhamashah Id"/>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click To Generate Qr Code"
+                android:layout_gravity="center"/>
 
 
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <ImageView
+                android:paddingTop="16dp"
+                android:id="@+id/image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:onClick="gallerypux"
+                />
 
+        </LinearLayout>
     </LinearLayout>
+
 
 </ScrollView>

@@ -21,9 +21,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.FileNotFoundException;
 
 
-
 public class BHome extends AppCompatActivity {
-
 
 
     private static final int PICKFILE_REQUEST_CODE = 0;
@@ -39,8 +37,8 @@ public class BHome extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button2);
         Button button1 = (Button) findViewById(R.id.button3);
-        textTargetUri = (TextView)findViewById(R.id.targeturi);
-        targetImage = (ImageView)findViewById(R.id.targetimage);
+        textTargetUri = (TextView) findViewById(R.id.targeturi);
+        targetImage = (ImageView) findViewById(R.id.targetimage);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,57 +49,54 @@ public class BHome extends AppCompatActivity {
         });
 
 
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.targeturi).setVisibility(View.VISIBLE);
+                Bitmap resized = ((BitmapDrawable) targetImage.getDrawable()).getBitmap();
+                Log.e(TAG, "" + resized.getHeight() + " " + resized.getWidth());
+                Bitmap myBitmap = Bitmap.createScaledBitmap(resized, 1080, 1920, true);
+                BarcodeDetector detector =
+                        new BarcodeDetector.Builder(getApplicationContext())
+                                .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                                .build();
+                if (!detector.isOperational()) {
+                    textTargetUri.setText("Could not set up the detector!");
+                    return;
+                }
+                Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
+                SparseArray<Barcode> barcodes = detector.detect(frame);
 
-    button1.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Bitmap resized = ((BitmapDrawable) targetImage.getDrawable()).getBitmap();
-            Log.e(TAG,""+resized.getHeight()+" "+resized.getWidth());
-            Bitmap myBitmap = Bitmap.createScaledBitmap(resized,1080, 1920, true);
-            BarcodeDetector detector =
-                    new BarcodeDetector.Builder(getApplicationContext())
-                            .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
-                            .build();
-            if(!detector.isOperational()){
-                textTargetUri.setText("Could not set up the detector!");
-                return;
+                Barcode thisCode = barcodes.valueAt(0);
+                textTargetUri.setText(thisCode.rawValue);
+
             }
-            Frame frame = new Frame.Builder().setBitmap(myBitmap).build();
-            SparseArray<Barcode> barcodes = detector.detect(frame);
-
-            Barcode thisCode = barcodes.valueAt(0);
-            textTargetUri.setText(thisCode.rawValue);
-
-        }
-    });
+        });
     }
 
-  @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-      super.onActivityResult(requestCode, resultCode, data);
-      if (requestCode == 0) {
-          if (resultCode == RESULT_OK) {
-              Uri targetUri = data.getData();
-              textTargetUri.setText(targetUri.toString());
-              Bitmap bitmap;
-              try {
-                  bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                Uri targetUri = data.getData();
+                Bitmap bitmap;
+                try {
+                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
 
-                  targetImage.setImageBitmap(bitmap);
-              } catch (FileNotFoundException e) {
+                    targetImage.setImageBitmap(bitmap);
 
-                  e.printStackTrace();
-              }
-          }
+                } catch (FileNotFoundException e) {
 
-          }
+                    e.printStackTrace();
+                }
+            }
 
-      
-  }
+        }
 
 
-    
+    }
 
 
 }

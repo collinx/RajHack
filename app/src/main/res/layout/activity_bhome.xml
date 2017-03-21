@@ -12,35 +12,49 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#9fa8da">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="QR Code Decode"
+                android:textSize="28sp"
+                android:gravity="center"/>
+        </android.support.v7.widget.Toolbar>
 
         <Button
             android:id="@+id/button2"
+            android:paddingTop="16dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:text="Click To PRoceed To Next Activity"
+            android:text="Click to import the Image"
             />
-
-        <TextView
-            android:id="@+id/targeturi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sample"
-            android:layout_gravity="center"/>
-
         <ImageView
+            android:padding="32dp"
+            android:layout_gravity="center"
             android:id="@+id/targetimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-
         <Button
             android:id="@+id/button3"
+            android:padding="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Something"
+            android:text="Click To Decode"
+            android:layout_gravity="center"
             />
-
+        <TextView
+            android:id="@+id/targeturi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:visibility="invisible"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
