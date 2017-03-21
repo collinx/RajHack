@@ -8,14 +8,10 @@ _**#RajHack**
 
 	To build a better society,empowerment of every woman is imperative because empowerment of the woman is empowerment of the society and thus the State.The Bhamashah Scheme envisaged by us in the year 2008 with this aim, even before the Aadhaar programme was thought of,is the first of its kind direct benefit transfer scheme in the country.The objective of the Scheme is financial inclusion,women empowerment and effective service delivery.
 	Bank Account and Bhamashah Card to be made in the name of the lady of the house that empowers her to be the decision-maker for the family, for effective use of all cash and non-cash benefits undervarious public welfare schemes of the government.
-
-
-                                                                             **Vasundhara Raje
-                                                                          Chief Minister, Rajasthan**
+																													     **Vasundhara Raje															Chief Minister, Rajasthan**
 
 
 _**About This App**_
-
 		_QR Code Generator_
 			Takes Bhamashah ID to get details
 			Verify validity of Bhamashah ID
