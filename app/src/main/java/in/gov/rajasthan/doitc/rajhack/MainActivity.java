@@ -1,7 +1,11 @@
 package in.gov.rajasthan.doitc.rajhack;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +18,15 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                     + "\nRation Card Number: " + response.body().getHofDetail().getRATIONCARDNO()
                                     + "\nCategory: " + response.body().getHofDetail().getCATEGORYDESCENG()
                                     + "\nEconomic Group: " + response.body().getHofDetail().getECONOMICGROUP()
-                                    +"\n";
+                                   ;
                             int num = response.body().getFamilyDetailss().size();
                             extra = new String[num];
                             for (int i = 0; i < num; i++) {
@@ -71,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                                         + "\nRelation: " + response.body().getFamilyDetailss().get(i).getRELATIONENG()
                                         + "\nDOB: " + response.body().getFamilyDetailss().get(i).getDOB()
                                         + "\nEDUCATION: " + response.body().getFamilyDetailss().get(i).getEDUCATIONDESCENG()
-                                        + "\n";
-                                result = result + extra[i];
+                                       ;
+                                result = result + '\n' + extra[i] + '\n';
 
                             }
 
@@ -83,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                                 bitmap = TextToImageEncode(edittext);
 
                                 image.setImageBitmap(bitmap);
+                                Button imagee = (Button) findViewById(R.id.button5);
+                                imagee.setVisibility(View.VISIBLE);
 
                             } catch (WriterException e) {
                                 e.printStackTrace();
@@ -106,13 +121,73 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        Button imagee = (Button) findViewById(R.id.button5);
+        imagee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView imageView = (ImageView) findViewById(R.id.image1);
+                 Bitmap bitmap1 = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP_MR1){
+                        String[] perms = {"android.permission. WRITE_EXTERNAL_STORAGE"};
 
+                        int permsRequestCode = 200;
+
+                        requestPermissions(perms, permsRequestCode);
+                    }
+                 String path = Environment.getExternalStorageDirectory().getPath().toString();
+                OutputStream fOutputStream = null;
+                String dirPath = path+"/DCIM/BhamashahCode/";
+                File dirFile = new File(dirPath);
+                if(!dirFile.exists()){
+                    dirFile.mkdirs();
+                }
+                String namee = ""+(new SimpleDateFormat("yyyyMMdd_HHmmss", Locale
+                        .getDefault())).format(new Date())+ ".jpg";
+                File file = new File(dirFile,namee);
+
+                        try {
+
+                            fOutputStream = new FileOutputStream(file);
+
+                            bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, fOutputStream);
+
+                            fOutputStream.flush();
+                            fOutputStream.close();
+                            Toast.makeText(getApplicationContext(), "Image Saved: "+ dirPath, Toast.LENGTH_SHORT).show();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                            return;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return;
+                        }
+
+
+
+            }
+
+        });
 
 
     }
      /*
 
 */
+     @Override
+     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+
+         switch(permsRequestCode){
+
+             case 200:
+
+                 boolean writeAccepted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+
+                 break;
+
+         }
+
+     }
+
 
 
     Bitmap TextToImageEncode(String Value) throws WriterException {

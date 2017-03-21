@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Click To Decode"
+            android:visibility="invisible"
             android:layout_gravity="center"
             />
         <TextView

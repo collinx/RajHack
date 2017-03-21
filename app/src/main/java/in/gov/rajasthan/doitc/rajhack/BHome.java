@@ -55,7 +55,14 @@ public class BHome extends AppCompatActivity {
                 findViewById(R.id.targeturi).setVisibility(View.VISIBLE);
                 Bitmap resized = ((BitmapDrawable) targetImage.getDrawable()).getBitmap();
                 Log.e(TAG, "" + resized.getHeight() + " " + resized.getWidth());
-                Bitmap myBitmap = Bitmap.createScaledBitmap(resized, 1080, 1920, true);
+                Bitmap myBitmap;
+                if(resized.getHeight() > 1920 && resized.getWidth() > 1080){
+                      myBitmap = Bitmap.createScaledBitmap(resized, 1080, 1920, true);
+                }
+
+                else{
+                      myBitmap = Bitmap.createScaledBitmap(resized, resized.getWidth(), resized.getHeight(), true);
+                }
                 BarcodeDetector detector =
                         new BarcodeDetector.Builder(getApplicationContext())
                                 .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
@@ -86,7 +93,8 @@ public class BHome extends AppCompatActivity {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
 
                     targetImage.setImageBitmap(bitmap);
-
+                    Button asa = (Button) findViewById(R.id.button3);
+                    asa.setVisibility(View.VISIBLE);
                 } catch (FileNotFoundException e) {
 
                     e.printStackTrace();
